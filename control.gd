@@ -177,10 +177,7 @@ func _on_license_toggled(toggled_on):
 
 func _on_license_2_toggled(toggled_on):
 	if (toggled_on):
-		$SplitContainer2/RichTextLabel.clear()
 		$SplitContainer.hide()
 		$SplitContainer2.show()
-		$SplitContainer2/RichTextLabel.add_text(FileAccess.get_file_as_string("res://LICENSE.txt"))
 	else:
-		$SplitContainer2/RichTextLabel.clear()
 		$SplitContainer2.hide()
