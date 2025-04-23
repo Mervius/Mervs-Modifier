@@ -1,0 +1,161 @@
+[gd_scene load_steps=5 format=3 uid="uid://d3twh4rhevbqm"]
+
+[ext_resource type="Script" uid="uid://pjxc4yvw2j2e" path="res://control.gd" id="1_6ga0h"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_uem32"]
+thickness = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_62e2m"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0fbet"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+bg_color = Color(0, 0, 0, 0.686275)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6ga0h")
+target_file_name = "ComplementaryReimagined_r5.4 + EuphoriaPatches_1.5.2"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 1
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Merv's Modifier"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_uem32")
+
+[node name="BaseDir" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Base Shader Directory"
+autowrap_mode = 3
+
+[node name="FileDialogBase" type="FileDialog" parent="VBoxContainer/BaseDir"]
+title = "Open a Directory"
+initial_position = 4
+size = Vector2i(1000, 500)
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_uem32")
+
+[node name="ModDir" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "Modification Directory"
+autowrap_mode = 3
+
+[node name="FileDialogMod" type="FileDialog" parent="VBoxContainer/ModDir"]
+auto_translate_mode = 1
+title = "Open a Directory"
+initial_position = 4
+size = Vector2i(1000, 500)
+ok_button_text = "Select Current Folder"
+file_mode = 2
+access = 2
+
+[node name="HSeparator3" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_uem32")
+
+[node name="Confirm" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+disabled = true
+text = "Confirm"
+
+[node name="HSeparator4" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_uem32")
+
+[node name="License2" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "First-Party License"
+
+[node name="License" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+toggle_mode = true
+text = "Third-Party Licenses"
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="SplitContainer" type="SplitContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/split_bar_background = SubResource("StyleBoxFlat_62e2m")
+split_offset = 500
+vertical = true
+
+[node name="Container" type="Container" parent="SplitContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SplitContainer"]
+layout_mode = 2
+focus_mode = 2
+theme_override_font_sizes/normal_font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_0fbet")
+bbcode_enabled = true
+autowrap_mode = 2
+selection_enabled = true
+
+[node name="SplitContainer2" type="SplitContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/split_bar_background = SubResource("StyleBoxFlat_62e2m")
+split_offset = 500
+vertical = true
+
+[node name="Container" type="Container" parent="SplitContainer2"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SplitContainer2"]
+layout_mode = 2
+focus_mode = 2
+theme_override_font_sizes/normal_font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_0fbet")
+bbcode_enabled = true
+autowrap_mode = 2
+selection_enabled = true
+
+[connection signal="pressed" from="VBoxContainer/BaseDir" to="." method="_on_base_dir_pressed"]
+[connection signal="dir_selected" from="VBoxContainer/BaseDir/FileDialogBase" to="." method="_on_file_dialog_base_dir_selected"]
+[connection signal="pressed" from="VBoxContainer/ModDir" to="." method="_on_mod_dir_pressed"]
+[connection signal="dir_selected" from="VBoxContainer/ModDir/FileDialogMod" to="." method="_on_file_dialog_mod_dir_selected"]
+[connection signal="pressed" from="VBoxContainer/Confirm" to="." method="_on_confirm_pressed"]
+[connection signal="toggled" from="VBoxContainer/License2" to="." method="_on_license_2_toggled"]
+[connection signal="toggled" from="VBoxContainer/License" to="." method="_on_license_toggled"]
