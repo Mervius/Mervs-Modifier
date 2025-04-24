@@ -1,0 +1,1 @@
+Technically, this can modify any text file with any json directory source, but is currently hardcoded to only accept a base directory with the same name as the most recent Complementary + Euphoria Patches shader pack and a json directory named Merv's Modifications, which is currently unreleased.
