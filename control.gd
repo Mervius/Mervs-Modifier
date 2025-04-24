@@ -70,13 +70,18 @@ func _on_confirm_pressed() -> void:
 					match (json[key]["type"]):
 						"replace":
 							var replacer : FileAccess = FileAccess.open(dup_dir_string.path_join(json["file"]),FileAccess.READ_WRITE)
+							print_debug(json["file"])
 							var swapper : String = replacer.get_as_text()
 							var before = swapper.get_slice(json[key]["linebefore"],0)
-							print_debug(before)
 							var after = swapper.get_slice(json[key]["lineafter"],1)
-							print_debug("after: " + after)
 							replacer.resize(0)
 							replacer.store_string(before + json[key]["code"] + after)
+							replacer.close()
+						"full replace":
+							var replacer : FileAccess = FileAccess.open(dup_dir_string.path_join(json["file"]),FileAccess.READ_WRITE)
+							var swapper : String = replacer.get_as_text()
+							replacer.resize(0)
+							replacer.store_string(json[key]["code"])
 							replacer.close()
 						"new file":
 							var new = FileAccess.open(dup_dir_string.path_join(json["file"]),FileAccess.WRITE)
