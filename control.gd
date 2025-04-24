@@ -10,6 +10,7 @@ var mod_dir : DirAccess
 func _ready():
 	get_node("VBoxContainer/BaseDir/FileDialogBase").set_current_dir(OS.get_executable_path())
 	get_node("VBoxContainer/ModDir/FileDialogMod").set_current_dir(OS.get_executable_path())
+	$VBoxContainer/HBoxContainer/Version.text = "Version: " + ProjectSettings.get_setting("application/config/version")
 
 func _on_base_dir_pressed() -> void:
 	var dialog : FileDialog = get_node("VBoxContainer/BaseDir/FileDialogBase")
@@ -77,6 +78,10 @@ func _on_confirm_pressed() -> void:
 							replacer.resize(0)
 							replacer.store_string(before + json[key]["code"] + after)
 							replacer.close()
+						"new file":
+							var new = FileAccess.open(dup_dir_string.path_join(json["file"]),FileAccess.WRITE)
+							new.store_string(json[key]["code"])
+							new.close()
 			file.close()
 			$Timer.start()
 		await  $Timer.timeout
